@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lushlocks - Personalised Hair Ritual</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="hero">
+    <h1>Lushlocks ✨</h1>
+    <p>Your personalised haircare ritual for EVERYONE</p>
+    <button onclick="startQuiz()">Start Custom Plan</button>
+  </div>
+
+  <div id="quizModal" class="modal">
+    <div class="modal-content">
+      <h2>Let’s personalise your ritual!</h2>
+
+      <label for="gender">Your Gender:</label>
+      <select id="gender" onchange="showHairType()">
+        <option value="" disabled selected>Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+
+      <div id="hairTypeSection" style="display:none;">
+        <label for="hairType">Your Hair Type:</label>
+        <select id="hairType">
+          <option value="Straight">Straight</option>
+          <option value="Wavy">Wavy</option>
+          <option value="Curly">Curly</option>
+          <option value="Coily">Coily</option>
+        </select>
+      </div>
+
+      <div id="hairConcernSection" style="display:none;">
+        <label for="hairConcern">Your Hair Concern:</label>
+        <select id="hairConcern">
+          <option value="Dryness">Dryness</option>
+          <option value="Dandruff">Dandruff</option>
+          <option value="Hair Fall">Hair Fall</option>
+          <option value="Frizz">Frizz</option>
+        </select>
+      </div>
+
+      <button id="nextBtn" style="display:none;" onclick="showRecommendation()">Get My Plan</button>
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
