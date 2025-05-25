@@ -1,54 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lushlocks - Personalised Hair Ritual</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LushLocks - Your Personalized Hair Care</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      color: #333;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    h2 {
+      color: #34495e;
+      margin-top: 30px;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 460px;
+      width: 100%;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    select, input[type=checkbox] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+    .checkbox-group {
+      margin-bottom: 20px;
+      max-height: 160px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      background: #fafafa;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #34495e;
+    }
+    button {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #ee5253;
+    }
+    .result {
+      margin-top: 30px;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+      color: #2c3e50;
+    }
+    .section-title {
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #d6336c;
+      border-bottom: 2px solid #d6336c;
+      padding-bottom: 4px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    a {
+      color: #ff6b6b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      form, .result {
+        padding: 20px;
+      }
+      button {
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Lushlocks ✨</h1>
-    <p>Your personalised haircare ritual for EVERYONE</p>
-    <button onclick="startQuiz()">Start Custom Plan</button>
-  </div>
 
-  <div id="quizModal" class="modal">
-    <div class="modal-content">
-      <h2>Let’s personalise your ritual!</h2>
+  <h1>LushLocks</h1>
+  <p style="text-align:center; max-width:600px; margin-bottom: 25px; font-weight: 500; font-size: 1.1rem;">
+    Personalized hair care plans tailored to your gender, hair type, and hair concerns.
+  </p>
 
-      <label for="gender">Your Gender:</label>
-      <select id="gender" onchange="showHairType()">
-        <option value="" disabled selected>Select</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
+  <form id="lushlocks-form">
+    <label for="gender">Select Your Gender:</label>
+    <select id="gender" required>
+      <option value="" disabled selected>Choose gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
 
-      <div id="hairTypeSection" style="display:none;">
-        <label for="hairType">Your Hair Type:</label>
-        <select id="hairType">
-          <option value="Straight">Straight</option>
-          <option value="Wavy">Wavy</option>
-          <option value="Curly">Curly</option>
-          <option value="Coily">Coily</option>
-        </select>
-      </div>
+    <label for="hairType">Select Your Hair Type:</label>
+    <select id="hairType" required>
+      <option value="" disabled selected>Choose hair type</option>
+      <option value="normal">Normal</option>
+      <option value="oily">Oily</option>
+      <option value="dry">Dry</option>
+      <option value="curly">Curly</option>
+      <option value="straight">Straight</option>
+      <option value="wavy">Wavy</option>
+    </select>
 
-      <div id="hairConcernSection" style="display:none;">
-        <label for="hairConcern">Your Hair Concern:</label>
-        <select id="hairConcern">
-          <option value="Dryness">Dryness</option>
-          <option value="Dandruff">Dandruff</option>
-          <option value="Hair Fall">Hair Fall</option>
-          <option value="Frizz">Frizz</option>
-        </select>
-      </div>
-
-      <button id="nextBtn" style="display:none;" onclick="showRecommendation()">Get My Plan</button>
+    <label>Select Your Hair Concerns (choose up to 4):</label>
+    <div class="checkbox-group" id="concerns-group">
+      <label><input type="checkbox" name="concerns" value="damaged" /> Damaged Hair</label>
+      <label><input type="checkbox" name="concerns" value="splitEnds" /> Split Ends</label>
+      <label><input type="checkbox" name="concerns" value="hairFall" /> Hair Fall</label>
+      <label><input type="checkbox" name="concerns" value="dandruff" /> Dandruff</label>
+      <label><input type="checkbox" name="concerns" value="dryScalp" /> Dry Scalp</label>
+      <label><input type="checkbox" name="concerns" value="frizziness" /> Frizziness</label>
+      <label><input type="checkbox" name="concerns" value="thinning" /> Thinning Hair</label>
+      <label><input type="checkbox" name="concerns" value="lackShine" /> Lack of Shine</label>
+      <label><input type="checkbox" name="concerns" value="breakage" /> Hair Breakage</label>
     </div>
-  </div>
 
-  <div id="result"></div>
+    <label>Would you like to see product recommendations?</label>
+    <select id="showProducts" required>
+      <option value="" disabled selected>Choose an option</option>
+      <option value="yes">Yes, show me products</option>
+      <option value="no">No, just the routine</option>
+    </select>
 
-  <script src="script.js"></script>
+    <button type="submit">Get My Hair Care Plan</button>
+  </form>
+
+  <div class="result" id="result" style="display:none;"></div>
+
+  <script>
+    // Data: routines, products, tips
+    const hairCareDatabase = {
+      routines: {
+        male: {
+          normal: {
+            damaged: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Lightweight conditioner",
+              serum: "Repair serum"
+            },
+            splitEnds: {
+              washFrequency: "Every 3 days",
+              hairMask: "Twice a week",
+              conditioner: "Moisturizing conditioner",
+              serum: "Split-end repair serum"
+            },
+            hairFall: {
+              washFrequency: "Every 2 days",
+              hairMask: "Once a week",
+              conditioner: "Strengthening conditioner",
+              serum: "Hair fall control serum"
+            },
+            dandruff: {
+              washFrequency: "Every 2 days",
+              hairMask: "Once a week",
+              conditioner: "Anti-dandruff conditioner",
+              serum: "Scalp soothing serum"
+            },
+            dryScalp: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Hydrating conditioner",
+              serum: "Scalp nourishing serum"
+            },
+            frizziness: {
+              washFrequency: "Every 3 days",
+              hairMask: "Twice a week",
+              conditioner: "Smoothing conditioner",
+              serum: "Frizz control serum"
+            },
+            thinning: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Volumizing conditioner",
+              serum: "Thickening serum"
+            },
+            lackShine: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Shine enhancing conditioner",
+              serum: "Gloss serum"
+            },
+            breakage: {
+              washFrequency: "Every 3 days",
+              hairMask: "Twice a week",
+              conditioner: "Strengthening conditioner",
+              serum: "Anti-breakage serum"
+            }
+          },
+          oily: {/* similar structure, simplified for brevity */},
+          dry: {/* ... */},
+          curly: {/* ... */},
+          straight: {/* ... */},
+          wavy: {/* ... */}
+        },
+        female: {
+          normal: {
+            damaged: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Nourishing conditioner",
+              serum: "Repair serum"
+            },
+            splitEnds: {
+              washFrequency: "Every 3 days",
+              hairMask: "Twice a week",
+              conditioner: "Moisturizing conditioner",
+              serum: "Split-end repair serum"
+            },
+            hairFall: {
+              washFrequency: "Every 2 days",
+              hairMask: "Once a week",
+              conditioner: "Strengthening conditioner",
+              serum: "Hair fall control serum"
+            },
+            dandruff: {
+              washFrequency: "Every 2 days",
+              hairMask: "Once a week",
+              conditioner: "Anti-dandruff conditioner",
+              serum: "Scalp soothing serum"
+            },
+            dryScalp: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Hydrating conditioner",
+              serum: "Scalp nourishing serum"
+            },
+            frizziness: {
+              washFrequency: "Every 3 days",
+              hairMask: "Twice a week",
+              conditioner: "Smoothing conditioner",
+              serum: "Frizz control serum"
+            },
+            thinning: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Volumizing conditioner",
+              serum: "Thickening serum"
+            },
+            lackShine: {
+              washFrequency: "Every 3 days",
+              hairMask: "Once a week",
+              conditioner: "Shine enhancing conditioner",
+              serum: "Gloss serum"
+            },
+            breakage: {
+              washFrequency: "Every 3 days",
+              hairMask: "Twice a week",
+              conditioner: "Strengthening conditioner",
+              serum: "Anti-breakage serum"
+            }
+          },
+          oily: {/* ... */},
+          dry: {/* ... */},
+          curly: {/* ... */},
+          straight: {/* ... */},
+          wavy: {/* ... */}
+        }
+      },
+      products: {
+        shampoo: [
+          { name: "Herbal Shine Shampoo", link: "https://example.com/herbal-shine-shampoo" },
+          { name: "Moisture Boost Shampoo", link: "https://example.com/moisture-boost-shampoo" },
+          { name: "Anti-Dandruff Shampoo", link: "https://example.com/anti-dandruff-shampoo" },
+          { name: "Volume Lift Shampoo", link: "https://example.com/volume-lift-shampoo" },
+          { name: "Repair & Strengthen Shampoo", link: "https://example.com/repair-strengthen-shampoo" }
+        ],
+        conditioner: [
+          { name: "Nourishing Conditioner", link: "https://example.com/nourishing-conditioner" },
+          { name: "Frizz Control Conditioner", link: "https://example.com/frizz-control-conditioner" },
+          { name: "Hydrating Conditioner", link: "https://example.com/hydrating-conditioner" },
+          { name: "Split-End Repair Conditioner", link: "https://example.com/split-end-repair-conditioner" },
+          { name: "Volume Boost Conditioner", link: "https://example.com/volume-boost-conditioner" }
+        ],
+        serum: [
+          { name: "Anti-Frizz Serum", link: "https://example.com/anti-frizz-serum" },
+          { name: "Hair Growth Serum", link: "https://example.com/hair-growth-serum" },
+          { name: "Repair Serum", link: "https://example.com/repair-serum" },
+          { name: "Gloss Enhancer Serum", link: "https://example.com/gloss-enhancer-serum" },
+          { name: "Scalp Nourishing Serum", link: "https://example.com/scalp-nourishing-serum" }
+        ],
+        hairMask: [
+          { name: "Deep Repair Hair Mask", link: "https://example.com/deep-repair-hair-mask" },
+          { name: "Hydrating Hair Mask", link: "https://example.com/hydrating-hair-mask" },
+          { name: "Anti-Dandruff Hair Mask", link: "https://example.com/anti-dandruff-hair-mask" },
+          { name: "Frizz Control Hair Mask", link: "https://example.com/frizz-control-hair-mask" },
+          { name: "Strengthening Hair Mask", link: "https://example.com/strengthening-hair-mask" }
+        ]
+      },
+      tips: [
+        "Avoid excessive heat styling to prevent damage.",
+        "Use a wide-tooth comb to detangle wet hair gently.",
+        "Trim your split ends every 6 weeks to maintain hair health.",
+        "Use sulfate-free shampoos for a gentler cleanse.",
+        "Don't wash your hair with hot water; use lukewarm instead.",
+        "Massage your scalp regularly to stimulate blood flow.",
+        "Use a silk or satin pillowcase to reduce hair breakage.",
+        "Avoid tight hairstyles to prevent hair stress and breakage.",
+        "Protect your hair from UV rays by wearing a hat outdoors.",
+        "Limit chemical treatments like bleaching or perming.",
+        "Condition your hair after every shampoo to maintain moisture.",
+        "Rinse hair with cold water to seal the cuticles and add shine.",
+        "Avoid brushing wet hair; instead, detangle carefully with fingers.",
+        "Use natural oils like coconut or argan oil for deep conditioning.",
+        "Eat a balanced diet rich in vitamins for healthy hair growth.",
+        "Drink plenty of water to keep your hair hydrated.",
+        "Avoid using too many styling products to prevent buildup.",
+        "Give your hair a break from styling tools regularly.",
+        "Use a hair serum to control frizz and add shine.",
+        "Sleep with your hair tied loosely to prevent tangling."
+      ]
+    };
+
+    // Limit max 4 checkboxes
+    const concernsGroup = document.getElementById('concerns-group');
+    concernsGroup.addEventListener('change', (e) => {
+      const checked = concernsGroup.querySelectorAll('input[type=checkbox]:checked');
+      if (checked.length > 4) {
+        e.target.checked = false;
+        alert('You can select up to 4 concerns only.');
+      }
+    });
+
+    // Main form submit logic
+    const form = document.getElementById('lushlocks-form');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Get user inputs
+      const gender = form.gender.value;
+      const hairType = form.hairType.value;
+      const concernsChecked = [...form.querySelectorAll('input[name=concerns]:checked')].map(cb => cb.value);
+      const showProducts = form.showProducts.value;
+
+      if (!gender || !hairType || concernsChecked.length === 0 || !showProducts) {
+        alert('Please fill all fields and select at least one hair concern.');
+        return;
+      }
+
+      // Build hair care routine summary
+      // We'll aggregate washFrequency, hairMask, conditioner, serum recommendations
+      // For simplicity, if multiple concerns, we'll show the first matching routine or merged advice
+
+      // Function to get routine for a concern if exists
+      function getRoutine(gender, hairType, concern) {
+        try {
+          return hairCareDatabase.routines[gender][hairType][concern];
+        } catch {
+          return null;
+        }
+      }
+
+      // Aggregate routines
+      let washFrequencySet = new Set();
+      let hairMaskSet = new Set();
+      let conditionerSet = new Set();
+      let serumSet = new Set();
+
+      for (const concern of concernsChecked) {
+        const routine = getRoutine(gender, hairType, concern);
+        if (routine) {
+          washFrequencySet.add(routine.washFrequency);
+          hairMaskSet.add(routine.hairMask);
+          conditionerSet.add(routine.conditioner);
+          serumSet.add(routine.serum);
+        }
+      }
+
+      // If empty, fallback to general advice
+      if (washFrequencySet.size === 0) washFrequencySet.add("Every 3 days");
+      if (hairMaskSet.size === 0) hairMaskSet.add("Once a week");
+      if (conditionerSet.size === 0) conditionerSet.add("Regular conditioner");
+      if (serumSet.size === 0) serumSet.add("Hair serum");
+
+      // Convert sets to arrays for display
+      const washFrequency = [...washFrequencySet].join(' / ');
+      const hairMask = [...hairMaskSet].join(' / ');
+      const conditioner = [...conditionerSet].join(' / ');
+      const serum = [...serumSet].join(' / ');
+
+      // Prepare result HTML
+      let html = `<h2>Your Personalized Hair Care Routine</h2>`;
+      html += `<p><strong>Wash Frequency:</strong> ${washFrequency}</p>`;
+      html += `<p><strong>Hair Mask:</strong> ${hairMask}</p>`;
+      html += `<p><strong>Conditioner:</strong> ${conditioner}</p>`;
+      html += `<p><strong>Serum:</strong> ${serum}</p>`;
+
+      // Show products if requested
+      if (showProducts === "yes") {
+        html += `<h3 class="section-title">Recommended Products</h3>`;
+
+        for (const productType in hairCareDatabase.products) {
+          html += `<h4>${productType.charAt(0).toUpperCase() + productType.slice(1)}</h4><ul>`;
+          hairCareDatabase.products[productType].forEach(product => {
+            html += `<li>${product.name} - <a href="${product.link}" target="_blank" rel="noopener noreferrer">Official Site</a></li>`;
+          });
+          html += `</ul>`;
+        }
+      }
+
+      // Random Pro Hair Care Tip
+      const tips = hairCareDatabase.tips;
+      const randomTip = tips[Math.floor(Math.random() * tips.length)];
+      html += `<hr/><p style="font-weight:bold; font-style:italic; color:#d6336c; font-size:1.1rem; text-align:center;">
+        PRO HAIR CARE TIP FROM US: <br />"${randomTip}"
+      </p>`;
+
+      // Show the result div
+      resultDiv.innerHTML = html;
+      resultDiv.style.display = 'block';
+
+      // Scroll to result smoothly
+      resultDiv.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
 </body>
 </html>
